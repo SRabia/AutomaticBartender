@@ -15,6 +15,8 @@ from drinks import drink_list, drink_options
 from nextionassociation import nextionAssociation_list,alexaAssociation_list
 from flask import Flask, render_template, url_for, redirect, request
 from flask_ask import Ask, session, question, statement
+from get_the_stuff import get_bitcoin_price
+
 GPIO.setmode(GPIO.BCM)
 
 LED_COUNT=37
@@ -68,7 +70,7 @@ def thread_alexa():
 
     @ask.launch
     def launch():
-        speech_text = 'Welcome to your Automatic Bartender'
+        speech_text = f'Welcome to your Automatic Bartender also bitcoin is at {get_bitcoin_price()} USD'
         return question(speech_text).reprompt(speech_text).simple_card(speech_text)
 
     @ask.intent('ServeDrinkIntent', mapping = {'drink':'drink'})
